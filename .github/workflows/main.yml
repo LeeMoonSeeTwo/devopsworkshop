@@ -1,0 +1,24 @@
+name: "main"
+
+on:
+  push:
+    branches:
+    - main
+  workflow_dispatch:
+
+jobs:
+  target:
+    runs-on: ubunto-latest
+    steps:
+    - uses: actions/chechout@v3
+      with:
+        fetch-depth: 0
+    - name: say Hello
+      run: echo "Hellow World!"
+
+    - name: Docker Build
+      run: docker build -t wars
+    - name: Docker Run
+      run: docker run -d -p 3000:80 wars
+    - name: List Docker Containers
+      run: docker ps
